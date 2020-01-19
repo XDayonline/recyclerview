@@ -4,13 +4,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.widget.Toast
 import com.ynov.myapplication.model.ForecastResult
 import com.ynov.myapplication.network.ApiError
 import com.ynov.myapplication.network.ApiHelpers
 import com.ynov.myapplication.network.ApiRequestCallback
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),OnClickListener  {
 
     val foods: ArrayList<String> = ArrayList()
     val forecastList: ArrayList<String> = ArrayList()
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
         // Access the RecyclerView Adapter and load the data into it
 //        rv_list.adapter = WeatherAdapter(foods, this)
-        rv_list.adapter = WeatherAdapter(forecastList, this)
+        rv_list.adapter = WeatherAdapter(forecastList, this,this)
 
         // Loads animals into the ArrayList
 //        addFoods()
@@ -87,18 +88,10 @@ class MainActivity : AppCompatActivity() {
         forecastList.add(res)
         Log.d("REPONSE",res)
     }
-//    fun addFoods() {
-//        foods.add("Hamburger")
-//        foods.add("Poulet")
-//        foods.add("Chien")
-//        foods.add("Nem")
-//        foods.add("Samoussa")
-//        foods.add("Couscous")
-//        foods.add("Lasagne")
-//        foods.add("Pomme")
-//        foods.add("Gateau")
-//        foods.add("Poire")
-//        foods.add("Céréales")
-//        foods.add("Pitch")
-//    }
+
+    override fun onItemClick(item: ForecastResult, position: Int) {
+        Toast.makeText(this, item.city.toString(), Toast.LENGTH_SHORT).show()
+        Log.d("REPONSE",item.city.toString())
+    }
+
 }
